@@ -6,7 +6,6 @@ public class unique_chars {
 	       String str1 = input.nextLine();
 	       System.out.println(ContainsUniqueChars(str1));
 	   }
-
 	private static boolean ContainsUniqueChars(String word) {
 		int[] myIntArray = new int[128];
 		for(int i=0;i<word.length();i++){
