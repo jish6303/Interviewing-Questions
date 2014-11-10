@@ -20,8 +20,8 @@ public class delete_duplicate {
 	private static LinkedList<String> delete_duplicate(LinkedList<String> list1) {	
 		Hashtable table = new Hashtable();
 		boolean remove=false;
-		LinkedList<String>.LinkedListNode<String> previous = list1.getfirst();
-		LinkedList<String>.LinkedListNode<String> cursor = list1.getfirst();
+		LinkedListNode<String> previous = list1.getfirst();
+		LinkedListNode<String> cursor = list1.getfirst();
 		while(cursor.next!=null){
 			if(table.containsKey(cursor.data)){
 				remove=true;

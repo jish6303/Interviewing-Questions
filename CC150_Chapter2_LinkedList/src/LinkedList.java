@@ -1,13 +1,6 @@
 public class LinkedList<E> {
-	public class LinkedListNode<E> {
-        E data;
-        LinkedListNode<E> next;
-        public E getCurrentData(){
-        	return data;
-        }
-    }
-	private LinkedListNode<E> head;
-    private LinkedListNode<E> tail;
+	public LinkedListNode<E> head;
+    public LinkedListNode<E> tail;
 	public <E> E deleteNode(LinkedListNode<E> node) {
         if(node == null || node.next == null) return null;
 
@@ -22,6 +15,7 @@ public class LinkedList<E> {
         this.head = new LinkedListNode<E>();
         this.tail = new LinkedListNode<E>();
         head.next = tail;
+        tail.next = null;
     }
 	
 	public void addLast(E e) {
@@ -41,6 +35,10 @@ public class LinkedList<E> {
     public LinkedListNode<E> getfirst(){
     	return head.next;
     }
+    
+    public LinkedListNode<E> getLast(){
+    	return tail;
+    }
 
     public E deleteFirst() {
         LinkedListNode<E> first = head.next;
@@ -51,6 +49,16 @@ public class LinkedList<E> {
     public E deleteLast() {
         // cannot do without iteration of the list! :-(
         throw new UnsupportedOperationException();
+    }
+    
+    public int get_size(){
+    	int i=0;
+    	LinkedListNode<E> node = head.next;
+    	while(node.next!=null){
+    		i++;
+    		node=node.next;
+    	}
+    	return i;
     }
 
     public LinkedListNode<E> findFirst(E e) {
@@ -64,10 +72,14 @@ public class LinkedList<E> {
 
     public void print() {
         LinkedListNode<E> curr = head.next;
+        int i=0;
         while(curr.next != null) {
-            System.out.println(curr.data);
+            System.out.print(curr.data);
+            if(i<this.get_size()-1) System.out.print("-> ");
             curr = curr.next;
+            i++;
         }
+        System.out.println();
     }
 
 
