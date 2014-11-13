@@ -16,7 +16,6 @@ public class delete_duplicate {
 	    list1.print();
 	    delete_duplicate(list1);
 	}
-
 	private static LinkedList<String> delete_duplicate(LinkedList<String> list1) {	
 		Hashtable table = new Hashtable();
 		boolean remove=false;
