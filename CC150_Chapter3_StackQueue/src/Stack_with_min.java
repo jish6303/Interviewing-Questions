@@ -5,7 +5,7 @@ function min which returns the minimum element? Push, pop and min should all
 operate in O(1) time */
 public class Stack_with_min {
 	public static void main(String[] args){
-		MyMinStack stack1= new MyMinStack();
+		MyMinStack stack1= new MyMinStack<Integer>();//Error: The type Stack_with_min.MyMinStack is not generic; it cannot be parameterized with arguments <Integer>
 		stack1.push(1);
 		stack1.push(11111111);
 		stack1.push(111111);
@@ -16,7 +16,7 @@ public class Stack_with_min {
 		stack1.push(1111111);
 		System.out.println(stack1.get_min());
 	}
-	public class MyMinStack extends MyStack<Integer>{
+	public class MyMinStack extends Stack<Integer>{
 		int min = Integer.MAX_VALUE;
 		MyStack<Integer> s;
 		Stack<Integer> MinStack = new Stack<Integer>();
