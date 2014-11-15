@@ -1,6 +1,4 @@
-/*
- Describe how you could use a single array to implement three stacks
-*/
+/*Describe how you could use a single array to implement three stacks*/
 import java.util.Scanner;
 import java.util.Stack;
 public class SingleArray_ThreeStacks {
