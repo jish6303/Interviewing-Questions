@@ -10,11 +10,9 @@ public class TwoStacksQueue<T> {
     	return (front_stack.isEmpty()&&back_stack.isEmpty());
     }
     public void add_First(T element){
-
     		while(!front_stack.isEmpty()){
     			back_stack.push(front_stack.pop());
     		}
-
     }
     public void add_Last(T element){
     		while(!back_stack.isEmpty()){
