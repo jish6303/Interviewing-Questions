@@ -4,28 +4,23 @@
 package question3_5;
 import java.util.Stack;
 public class TwoStacksQueue<T> {
-	Stack<T> front_stack;
-	Stack<T> back_stack;
+	Stack<T> front_stack = new Stack<T>();
+	Stack<T> back_stack = new Stack<T>();
     public boolean is_Empty(){
     	return (front_stack.isEmpty()&&back_stack.isEmpty());
     }
     public void add_First(T element){
-    	if(!back_stack.isEmpty()) back_stack.push(element);
-    	else{
+
     		while(!front_stack.isEmpty()){
     			back_stack.push(front_stack.pop());
     		}
-    		back_stack.push(element);
-    	}
+
     }
     public void add_Last(T element){
-    	if(!front_stack.isEmpty()) front_stack.push(element);
-    	else{
     		while(!back_stack.isEmpty()){
     			front_stack.push(back_stack.pop());
     		}
     		front_stack.push(element);
-    	}
     }
     public int size(){
     	return front_stack.size() + back_stack.size();
