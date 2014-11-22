@@ -13,6 +13,8 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     int x1, x2, y1, y2;
     int x, y, w, h;
     int count;
+    int[] first = new int[4];
+    int[] second = new int[4];
     private final JLabel recStart;
     private final JLabel recStop;
     private final JLabel cords; 
@@ -27,6 +29,7 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     	getContentPane().add( this.recStop, BorderLayout.EAST );
     	this.cords = new JLabel();
     	getContentPane().add( this.cords, BorderLayout.NORTH );
+    	//if(count==3) getContentPane().add("Please restart", BorderLayout.SOUTH );
     	addMouseListener( this ); // listens for own mouse and
     	addMouseMotionListener( this ); // mouse-motion events
     	setSize( 800, 600 );
@@ -38,13 +41,17 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
 
     public void mousePressed( final MouseEvent event ) {
     	this.mousePosition.setText( "Pressed at [" + ( this.x1 = event.getX() ) + ", " + ( this.y1 = event.getY() ) + "]" );
-    	if(count<3) this.recStart.setText( "Start:  [" + this.x1 + ", " + this.y1 + "]" );
+    	if(count<3) {
+    		this.recStart.setText( "Start:  [" + this.x1 + ", " + this.y1 + "]" );
+    	}
     	repaint();
     }
 
     public void mouseReleased( final MouseEvent event ) {
     	this.mousePosition.setText( "Released at [" + ( this.x2 = event.getX() ) + ", " + ( this.y2 = event.getY() ) + "]" );
-    	if(count<3) this.recStop.setText( "End:  [" + this.x2 + ", " + this.y2 + "]" );
+    	if(count<3) {
+    		this.recStop.setText( "End:  [" + this.x2 + ", " + this.y2 + "]" );
+    	}
     	Rectangle rectangle = getRectangleFromPoints();
     	this.rectangles.add( rectangle );
     	this.w = this.h = this.x1 = this.y1 = this.x2 = this.y2 = 0;
@@ -77,29 +84,51 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     		: this.y2, Math.abs( width ), Math.abs( height ) );
     	return rectangle;
     }
-
+    
+    public boolean if_contain(){
+    	if((first[0]<second[0]&&second[0]<first[2]
+    	 &&first[0]<second[2]&&second[2]<first[2]
+    	 &&first[1]<second[1]&&second[1]<first[3]
+         &&first[1]<second[3]&&second[3]<first[3])
+    	||(second[0]<first[0]&&first[0]<second[2]
+    	 &&second[0]<first[2]&&first[2]<second[2]
+    	 &&second[1]<first[1]&&first[1]<second[3]
+    	 &&second[1]<first[3]&&first[3]<second[3]))
+    	return true;
+    	else return false;
+    }
+    
     @Override
     public void paint( final Graphics g ) {
     	int i=0;
     	super.paint( g ); 
-    	g.drawString( "Start Rec Here", this.x1, this.y1 );
-    	g.drawString( "End Rec Here", this.x2, this.y2 );
-
     	Rectangle newRectangle = getRectangleFromPoints();
-    	if ( !isNewRect && i<2 ) {
+    	if ( !isNewRect) {
     		g.drawRect( newRectangle.x, newRectangle.y, newRectangle.width, newRectangle.height );
     	}
-    	
     	for( Rectangle rectangle : this.rectangles ) {
     		if(i==2) {
-    			this.cords.setText("Please Restart");
+    			if(if_contain())this.cords.setText("contain, please restart");
     			isNewRect=true;
     		}
     		else{
 	    		g.drawRect( rectangle.x, rectangle.y, rectangle.width, rectangle.height );
 	    		i++;
 	    		count=i+1;
-	    		this.cords.setText("Iteration: "+ i);
+	    		if(count==2) {
+            		first[0]=rectangle.x;
+            		first[1]=rectangle.y;
+            		first[2]=rectangle.x+rectangle.width;
+            		first[3]=rectangle.y+rectangle.height;
+            	}
+            	else if(count==3){
+            		second[0]=rectangle.x;
+            		second[1]=rectangle.y;
+            		second[2]=rectangle.x+rectangle.width;
+            		second[3]=rectangle.y+rectangle.height;
+            		//this.cords.setText(" "+ second[3]);
+            	}
+	    		this.cords.setText("Rectangle "+ i);
     		}
     	}
 
