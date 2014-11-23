@@ -148,14 +148,17 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     	return inside;
     }
     public boolean if_section(){
-    	if(((inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])<3)&&(inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])>0))
-    	||((inside(second[0],second[1],second[2],second[3],first[0],first[1],first[2],first[3])<3)&&(inside(second[0],second[1],second[2],second[3],first[0],first[1],first[2],first[3])>0)))	      
+    	if((inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])==1
+         ||(inside(second[0],second[1],second[2],second[3],first[0],first[1],first[2],first[3])==1))
+         &&((first[0]==second[2]&&first[1]==second[3])||(second[0]==first[2]&&second[1]==first[3])||(first[0]==second[2]&&first[3]==second[1]||(first[2]==second[0]&&first[1]==second[3])))) return false;       
+    	else if(((inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])<3)&&(inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])>0))
+    		  ||((inside(second[0],second[1],second[2],second[3],first[0],first[1],first[2],first[3])<3)&&(inside(second[0],second[1],second[2],second[3],first[0],first[1],first[2],first[3])>0)))	      
     	return true;
     	else if (inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])==0){
     		if((second[0]<first[0]&&first[2]<second[2]&&first[1]<second[1]&&second[3]<first[3])
     		 ||(first[0]<second[0]&&second[2]<first[2]&&second[1]<first[1]&&first[3]<second[3]))
         return true;
-    	else return false;
+    		else return false;
     	}
     	else return false;
     }
