@@ -97,11 +97,16 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     	return true;
     	else return false;
     }
+    public int inside(int x1, int y1, int x2, int y2, int m, int n, int p, int q){
+    	int inside=0;
+    	if(x1<=m&&m<=x2&&y1<=n&&n<=y2) inside++;
+    	if(x1<=m&&m<=x2&&y1<=q&&q<=y2) inside++;
+    	if(x1<=p&&p<=x2&&y1<=n&&n<=y2) inside++;
+    	if(x1<=p&&p<=x2&&y1<=q&&q<=y2) inside++;
+    	return inside;
+    }
     public boolean if_section(){
-    	if(first[0]<second[0]&&second[0]<first[2]
-    	 &&first[1]<second[1]&&second[1]<first[3]
-       &&!(first[0]<=second[2]&&second[2]<=first[2]&&first[1]<=second[3]&&second[3]<=first[3])) 
-    	return true;
+    	if(inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])<3) return true;
     	else return false;
     }
     public boolean if_adjacent(){
@@ -139,8 +144,8 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
             		second[2]=rectangle.x+rectangle.width;
             		second[3]=rectangle.y+rectangle.height;
             		if(if_contain())this.cords.setText("Containment of two rectangles.");
+            		else if(if_adjacent()) this.cords.setText("Adjacent of two rectangles.");
     	    		else if(if_section()) this.cords.setText("Intersection of two rectangles.");
-    	    		else if(if_adjacent()) this.cords.setText("Adjacent of two rectangles.");
             	}
     		}
     	}
