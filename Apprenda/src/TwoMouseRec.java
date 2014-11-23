@@ -69,9 +69,8 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     	getContentPane().add( this.recStop, BorderLayout.EAST );
     	this.cords = new JLabel();
     	getContentPane().add( this.cords, BorderLayout.NORTH );
-    	//getContentPane().add("Please restart", BorderLayout.SOUTH );
-    	addMouseListener( this ); // listens for own mouse and
-    	addMouseMotionListener( this ); // mouse-motion events
+    	addMouseListener( this ); 
+    	addMouseMotionListener( this );
     	setSize( 800, 600 );
     	setVisible( true );
     }
