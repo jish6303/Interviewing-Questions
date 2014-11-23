@@ -98,10 +98,15 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     	else return false;
     }
     public boolean if_section(){
-    	if(first[0]<=second[0]&&second[0]<=first[2]
-    	 &&first[1]<=second[1]&&second[1]<=first[3]
+    	if(first[0]<second[0]&&second[0]<first[2]
+    	 &&first[1]<second[1]&&second[1]<first[3]
        &&!(first[0]<=second[2]&&second[2]<=first[2]&&first[1]<=second[3]&&second[3]<=first[3])) 
     	return true;
+    	else return false;
+    }
+    public boolean if_adjacent(){
+    	if(((second[0]==first[2]||second[2]==first[0])&&(second[3]>first[1]&&second[1]<first[3]))
+    	 ||((second[1]==first[3]||second[3]==first[1])&&(second[2]>first[0]&&second[0]<first[2]))) return true;
     	else return false;
     }
     
@@ -110,6 +115,7 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     	int i=0;
     	super.paint( g ); 
     	Rectangle newRectangle = getRectangleFromPoints();
+    	this.cords.setText("Please draw rectangles");
     	if ( !isNewRect) {
     		g.drawRect( newRectangle.x, newRectangle.y, newRectangle.width, newRectangle.height );
     	}
@@ -118,7 +124,6 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     			isNewRect=true;
     		}
     		else{
-    			this.cords.setText("Please draw rectangles");
 	    		g.drawRect( rectangle.x, rectangle.y, rectangle.width, rectangle.height );
 	    		i++;
 	    		count=i+1;
@@ -133,11 +138,10 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
             		second[1]=rectangle.y;
             		second[2]=rectangle.x+rectangle.width;
             		second[3]=rectangle.y+rectangle.height;
-            		//this.cords.setText(" "+ second[3]);
             		if(if_contain())this.cords.setText("Containment of two rectangles.");
     	    		else if(if_section()) this.cords.setText("Intersection of two rectangles.");
+    	    		else if(if_adjacent()) this.cords.setText("Adjacent of two rectangles.");
             	}
-	    		//else this.cords.setText("Rectangle "+ i);
     		}
     	}
 
