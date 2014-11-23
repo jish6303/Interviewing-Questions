@@ -148,7 +148,15 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     	return inside;
     }
     public boolean if_section(){
-    	if(inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])<3) return true;
+    	if(((inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])<3)&&(inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])>0))
+    	||((inside(second[0],second[1],second[2],second[3],first[0],first[1],first[2],first[3])<3)&&(inside(second[0],second[1],second[2],second[3],first[0],first[1],first[2],first[3])>0)))	      
+    	return true;
+    	else if (inside(first[0],first[1],first[2],first[3],second[0],second[1],second[2],second[3])==0){
+    		if((second[0]<first[0]&&first[2]<second[2]&&first[1]<second[1]&&second[3]<first[3])
+    		 ||(first[0]<second[0]&&second[2]<first[2]&&second[1]<first[1]&&first[3]<second[3]))
+        return true;
+    	else return false;
+    	}
     	else return false;
     }
     public boolean if_adjacent(){
@@ -175,6 +183,7 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
 	    		i++;
 	    		count=i+1;
 	    		if(count==2) {
+	    			this.cords.setText("First rectangles drawn.");
             		first[0]=rectangle.x;
             		first[1]=rectangle.y;
             		first[2]=rectangle.x+rectangle.width;
@@ -188,6 +197,7 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
             		if(if_contain())this.cords.setText("Containment of two rectangles.");
             		else if(if_adjacent()) this.cords.setText("Adjacent of two rectangles.");
     	    		else if(if_section()) this.cords.setText("Intersection of two rectangles.");
+    	    		else this.cords.setText("The two rectangles are outside of each other, no containment, adjacent or intersection found.");
             		this.mousePosition.setText("Both rectangles drawn. See result above and exit by closing the window." );
             	}
     		}
