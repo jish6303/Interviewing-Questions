@@ -23,13 +23,14 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     public TwoMouseRec(){
     	super( "Rectangle Drawer" );
     	this.mousePosition = new JLabel();
+        getContentPane().add( mousePosition, BorderLayout.SOUTH );
     	this.recStart = new JLabel();
     	getContentPane().add( this.recStart, BorderLayout.WEST );
     	this.recStop = new JLabel();
     	getContentPane().add( this.recStop, BorderLayout.EAST );
     	this.cords = new JLabel();
     	getContentPane().add( this.cords, BorderLayout.NORTH );
-    	//if(count==3) getContentPane().add("Please restart", BorderLayout.SOUTH );
+    	//getContentPane().add("Please restart", BorderLayout.SOUTH );
     	addMouseListener( this ); // listens for own mouse and
     	addMouseMotionListener( this ); // mouse-motion events
     	setSize( 800, 600 );
@@ -60,10 +61,12 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     }
 
     public void mouseEntered( final MouseEvent event ) {
+    	mousePosition.setText( "Mouse entered at [" + event.getX() + ", " + event.getY() + "]" );
     	repaint();
     }
 
     public void mouseExited( final MouseEvent event ) {
+    	mousePosition.setText( "Mouse outside window" );
     	repaint();
     }
 
@@ -73,7 +76,8 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
     	repaint();
     }
 
-    public void mouseMoved( final MouseEvent event ) {  	
+    public void mouseMoved( final MouseEvent event ) {
+    	mousePosition.setText( "Moved at [" + event.getX() + ", " + event.getY() + "]" );
     	repaint();
     }
     private Rectangle getRectangleFromPoints() {
@@ -146,6 +150,7 @@ public class TwoMouseRec extends JFrame implements MouseListener, MouseMotionLis
             		if(if_contain())this.cords.setText("Containment of two rectangles.");
             		else if(if_adjacent()) this.cords.setText("Adjacent of two rectangles.");
     	    		else if(if_section()) this.cords.setText("Intersection of two rectangles.");
+            		this.mousePosition.setText("Both rectangles drawn. See result above and exit by closing the window." );
             	}
     		}
     	}
